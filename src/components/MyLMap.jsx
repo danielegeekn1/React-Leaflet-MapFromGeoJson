@@ -4,15 +4,16 @@ import countries from "./../data/countries.json";
 import "leaflet/dist/leaflet.css";
 import "./../components/myLMap.css";
 class MyLMap extends Component {
-  state = {};
-  color = ["green", "blue", "yellow", "orange", "grey"];
+  state = { color: "#ffff00" };
+  //color = ["green", "blue", "yellow", "orange", "grey"];
   componentDidMount() {
     console.log(countries);
   }
   changeStyleOnMouseOver = (event) => {
     event.target.setStyle({
       color: "green",
-      fillColor: "yellow",
+      //fillColor: "yellow",
+      fillColor: this.state.color,
       fillOpacity: 0.5,
     });
   };
@@ -27,8 +28,8 @@ class MyLMap extends Component {
   onEachCountry = (feature, layer) => {
     const countryName = feature.properties.ADMIN;
     layer.bindPopup(countryName + "population:");
-    const colorIndex = Math.floor(Math.random() * this.color.length);
-    layer.options.fillColor = this.color[colorIndex];
+    // const colorIndex = Math.floor(Math.random() * this.color.length);
+    // layer.options.fillColor = this.color[colorIndex];
     layer.on({
       mouseover: this.changeStyleOnMouseOver,
       mouseout: this.backToOriginalStyle,
@@ -41,6 +42,9 @@ class MyLMap extends Component {
     weight: 2, //size of our contries borders
     // dashArray: 3, this set our countries border to be set with separete points
   };
+  ColorChange = (e) => {
+    this.setState({ color: e.target.value });
+  };
   render() {
     return (
       <div>
@@ -52,6 +56,11 @@ class MyLMap extends Component {
             onEachFeature={this.onEachCountry}
           />
         </MapContainer>
+        <input
+          type="color"
+          value={this.state.color}
+          onChange={this.ColorChange}
+        />
       </div>
     );
   }
