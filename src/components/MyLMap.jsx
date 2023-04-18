@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "./../components/myLMap.css";
 class MyLMap extends Component {
   state = {};
+  color = ["green", "blue", "yellow", "orange", "grey"];
   componentDidMount() {
     console.log(countries);
   }
@@ -26,6 +27,8 @@ class MyLMap extends Component {
   onEachCountry = (feature, layer) => {
     const countryName = feature.properties.ADMIN;
     layer.bindPopup(countryName + "population:");
+    const colorIndex = Math.floor(Math.random() * this.color.length);
+    layer.options.fillColor = this.color[colorIndex];
     layer.on({
       mouseover: this.changeStyleOnMouseOver,
       mouseout: this.backToOriginalStyle,
