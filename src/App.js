@@ -1,9 +1,10 @@
 import "./App.css";
+import MyLMap from "./components/MyLMap";
 
 function App() {
   return (
-    <div className="App">
-      <h1>react leaflet map</h1>
+    <div>
+      <MyLMap />
     </div>
   );
 }
