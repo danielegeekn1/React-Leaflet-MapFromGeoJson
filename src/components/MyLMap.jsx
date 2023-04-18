@@ -8,10 +8,28 @@ class MyLMap extends Component {
   componentDidMount() {
     console.log(countries);
   }
+  changeStyleOnMouseOver = (event) => {
+    event.target.setStyle({
+      color: "green",
+      fillColor: "yellow",
+      fillOpacity: 0.5,
+    });
+  };
+  backToOriginalStyle = (event) => {
+    event.target.setStyle({
+      fillColor: "red",
+      fillOpacity: 0.8,
+      color: "black",
+      weight: 2,
+    });
+  };
   onEachCountry = (feature, layer) => {
     const countryName = feature.properties.ADMIN;
-    //console.log(countryName);
-    layer.bindPopup(countryName);
+    layer.bindPopup(countryName + "population:");
+    layer.on({
+      mouseover: this.changeStyleOnMouseOver,
+      mouseout: this.backToOriginalStyle,
+    });
   };
   countriesStyle = {
     fillColor: "red", //color which fills the features countries
